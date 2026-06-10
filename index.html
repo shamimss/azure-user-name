@@ -1,0 +1,428 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siksha Sathi • Batch 18</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at 10% 20%, #8b5cf6 0%, transparent 30%),
+    radial-gradient(circle at 90% 10%, #06b6d4 0%, transparent 25%),
+    radial-gradient(circle at 80% 90%, #ec4899 0%, transparent 25%),
+    radial-gradient(circle at 20% 80%, #22c55e 0%, transparent 20%),
+    linear-gradient(135deg,#020617,#0f172a,#111827);
+    background-attachment: fixed;
+}
+
+.glass{
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.glow{
+    box-shadow: 0 0 50px rgba(99,102,241,.25);
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#6366f1;
+    border-radius:20px;
+}
+</style>
+</head>
+
+<body class="text-white">
+
+<div class="max-w-5xl mx-auto px-4 py-10">
+
+    <!-- HEADER -->
+    <div class="glass glow rounded-3xl p-8 text-center mb-8">
+
+        <img
+        src="https://raw.githubusercontent.com/devopsinsiders/devopsinsiders/main/logo-light.png"
+        class="h-24 mx-auto mb-4">
+
+        <h1 class="text-4xl md:text-5xl font-bold">
+            Siksha Sathi • Batch 18
+        </h1>
+
+        <div class="flex flex-wrap justify-center gap-3 mt-5">
+
+            <span class="bg-indigo-600 px-4 py-2 rounded-full font-semibold">
+                Group 26
+            </span>
+
+            <span class="bg-pink-600 px-4 py-2 rounded-full font-semibold">
+                Lead: Mohd Shamim
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN CARD -->
+    <div class="glass glow rounded-3xl p-8">
+
+        <!-- AGREEMENT -->
+        <div id="agreementSection">
+
+            <h2 class="text-3xl font-bold mb-6">
+                Azure Infrastructure Access Agreement
+            </h2>
+
+            <div class="h-80 overflow-y-auto bg-black/20 rounded-2xl p-6 border border-white/10">
+
+                <h3 class="font-bold text-cyan-400 mb-2">Purpose</h3>
+                <p class="mb-5">
+                    Azure resources are provided strictly for educational use.
+                </p>
+
+                <h3 class="font-bold text-cyan-400 mb-2">Prohibition</h3>
+                <p class="mb-5">
+                    No commercial usage, crypto mining, or illegal activities.
+                </p>
+
+                <h3 class="font-bold text-cyan-400 mb-2">Financial Liability</h3>
+                <p class="mb-4">
+                    Each user must maintain infrastructure during their assigned month.
+                    Failure incurs ₹1000 penalty payable to each group member.
+                </p>
+
+                <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-4 mb-5">
+
+                    <p class="font-semibold text-red-300">
+                        Mandatory Resource Cleanup Policy
+                    </p>
+
+                    <p class="mt-2">
+                        Daily Azure Portal par kaam complete hone ke baad
+                        Resource Group, Virtual Machine, Storage Account,
+                        Public IP, Virtual Network aur anya resources
+                        same day delete karna anivarya hai.
+                    </p>
+
+                    <p class="mt-2 text-yellow-300 font-semibold">
+                        Failure to remove resources may result in a
+                        ₹1000 penalty payable to each group member.
+                    </p>
+
+                </div>
+
+                <h3 class="font-bold text-cyan-400 mb-2">Confidentiality</h3>
+                <p class="mb-5">
+                    Credentials must not be shared outside the group.
+                </p>
+
+                <h3 class="font-bold text-cyan-400 mb-2">Auditing</h3>
+                <p>
+                    Admin may audit logs and revoke access anytime.
+                </p>
+
+            </div>
+
+            <div class="flex items-center gap-3 mt-6">
+
+                <input
+                type="checkbox"
+                id="agree"
+                class="w-5 h-5">
+
+                <label for="agree">
+                    I acknowledge and agree to these terms.
+                </label>
+
+            </div>
+
+            <button
+            id="continueBtn"
+            disabled
+            class="mt-6 px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-600 opacity-50 cursor-not-allowed font-semibold">
+                I Agree & Continue
+            </button>
+
+        </div>
+
+        <!-- AUTH -->
+        <div id="authSection" class="hidden">
+
+            <h2 class="text-3xl font-bold mb-6">
+                Email Authentication
+            </h2>
+
+            <input
+            id="emailInput"
+            type="email"
+            placeholder="Enter your personal email"
+            class="w-full p-4 rounded-xl bg-black/20 border border-white/20 mb-4 outline-none">
+
+            <button
+            onclick="authenticateUser()"
+            class="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-semibold">
+                Authenticate
+            </button>
+
+            <p id="errorMsg" class="text-red-400 mt-4"></p>
+
+        </div>
+
+        <!-- CREDENTIALS -->
+        <div id="credentialSection" class="hidden">
+
+            <h2 class="text-3xl font-bold text-green-400 mb-6">
+                Your Azure Credentials
+            </h2>
+
+            <div class="bg-black/20 rounded-2xl p-6 border border-white/10">
+
+                <div class="mb-5">
+
+                    <div class="text-gray-300 text-sm">
+                        Azure Username
+                    </div>
+
+                    <div id="azureUsername"
+                    class="text-xl font-semibold mt-2"></div>
+
+                </div>
+
+                <div>
+
+                    <div class="text-gray-300 text-sm">
+                        Password
+                    </div>
+
+                    <div class="flex items-center gap-3 mt-2">
+
+                        <span id="passwordField"
+                        class="text-xl font-semibold">
+                            ••••••••
+                        </span>
+
+                        <button
+                        onclick="togglePassword()"
+                        class="bg-indigo-600 px-4 py-2 rounded-lg">
+                            Reveal / Hide
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+// ADD YOUR AUTHORIZED USERS HERE
+
+const users = [
+
+{
+    username: "Shikha@b18g26.online",
+    password: "Akhilesh@123",
+    email: "shikhagautam67@gmail.com"
+},
+
+{
+    username: "Gulam@b18g26.online",
+    password: "Akhilesh@123",
+    email: "sarvarobra987@gmail.com"
+},
+
+{
+    username: "Sandeep@b18g26.online",
+    password: "Akhilesh@123",
+    email: "pachar.sandeep@gmail.com"
+},
+
+{
+    username: "Aman@b18g26.online",
+    password: "Akhilesh@123",
+    email: "amankmrsngh5@gmail.com"
+},
+
+{
+    username: "Akhilesh1@b18g26.online",
+    password: "Akhilesh@123",
+    email: "sanuchoudhry@gmail.com"
+},
+
+{
+    username: "Mohsin@b18g26.online",
+    password: "Akhilesh@123",
+    email: "logintomohsin@gmail.com"
+},
+
+{
+    username: "Zeeshan@b18g26.online",
+    password: "Akhilesh@123",
+    email: "zeeshan.afset@gmail.com"
+},
+
+{
+    username: "Suraj@b18g26.online",
+    password: "Akhilesh@123",
+    email: "surajchaudhari1420@gmail.com"
+},
+
+{
+    username: "Shashi@b18g26.online",
+    password: "Akhilesh@123",
+    email: "spsingh016@gmail.com"
+},
+
+{
+    username: "VIPIN@b18g26.online",
+    password: "Akhilesh@123",
+    email: "ervipinjangra@gmail.com"
+},
+
+{
+    username: "Dinesh@b18g26.online",
+    password: "Akhilesh@123",
+    email: "dineshyadav.ec@gmail.com"
+},
+
+{
+    username: "Hari@b18g26.online",
+    password: "Akhilesh@123",
+    email: "hk5699563@gmail.com"
+},
+
+{
+    username: "Rohit@b18g26.online",
+    password: "Akhilesh@123",
+    email: "neal.leo007@gmail.com"
+},
+
+{
+    username: "Ramakrishna@b18g26.online",
+    password: "Akhilesh@123",
+    email: "ram.sip786@gmail.com"
+},
+
+{
+    username: "Rajinder@b18g26.online",
+    password: "Akhilesh@123",
+    email: "royalraj376@gmail.com"
+},
+
+{
+    username: "Balkrishna@b18g26.online",
+    password: "Akhilesh@123",
+    email: "balkrishna.savalia@gmail.com"
+},
+
+{
+    username: "Aamya@b18g26.online",
+    password: "Akhilesh@123",
+    email: "aamyagupta@gmail.com"
+},
+
+{
+    username: "Srikant@b18g26.online",
+    password: "Akhilesh@123",
+    email: "srikantsingh.82@gmail.com"
+},
+
+{
+    username: "mdshamim971167@gmail.com",
+    password: "Sh@mim786",
+    email: "mohd.shamim38@gmail.com"
+},
+
+{
+    username: "Saqlain@b18g26.online",
+    password: "Akhilesh@123",
+    email: "mirza4saqlain@gmail.com"
+}
+
+
+];
+let currentUser = null;
+let passwordVisible = false;
+
+const agree = document.getElementById("agree");
+const continueBtn = document.getElementById("continueBtn");
+
+agree.addEventListener("change", () => {
+
+    continueBtn.disabled = !agree.checked;
+
+    if(agree.checked){
+        continueBtn.classList.remove("opacity-50","cursor-not-allowed");
+    }else{
+        continueBtn.classList.add("opacity-50","cursor-not-allowed");
+    }
+
+});
+
+continueBtn.addEventListener("click", () => {
+
+    document.getElementById("agreementSection").classList.add("hidden");
+    document.getElementById("authSection").classList.remove("hidden");
+
+});
+
+function authenticateUser(){
+
+    const email =
+        document.getElementById("emailInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const user =
+        users.find(
+            u => u.email.toLowerCase() === email
+        );
+
+    if(!user){
+
+        document.getElementById("errorMsg").innerText =
+        "Email not authorized";
+
+        return;
+    }
+
+    currentUser = user;
+
+    document.getElementById("authSection").classList.add("hidden");
+    document.getElementById("credentialSection").classList.remove("hidden");
+
+    document.getElementById("azureUsername").innerText =
+    user.username;
+}
+
+function togglePassword(){
+
+    if(!currentUser) return;
+
+    passwordVisible = !passwordVisible;
+
+    document.getElementById("passwordField").innerText =
+        passwordVisible
+        ? currentUser.password
+        : "••••••••";
+}
+
+</script>
+
+</body>
+</html>
+```
